@@ -14,11 +14,9 @@ export class CourseSeeder implements Seeder {
   ) {}
 
   async seed(): Promise<void> {
-    // Check if courses already exist
     const existingCourses = await this.courseRepository.count();
     if (existingCourses > 0) return;
 
-    // Get teacher and student users by their roles
     const teacher = await this.userRepository.findOne({
       where: { type: 'TEACHER' },
     });
@@ -30,7 +28,6 @@ export class CourseSeeder implements Seeder {
       throw new Error('Teacher or Student user not found. Seed users first.');
     }
 
-    // Create courses
     const courses = [
       this.courseRepository.create({
         title: 'Math 101',
@@ -104,7 +101,6 @@ export class CourseSeeder implements Seeder {
       }),
     ];
 
-    // Save courses
     for (const course of courses) {
       await this.courseRepository.save(course);
     }

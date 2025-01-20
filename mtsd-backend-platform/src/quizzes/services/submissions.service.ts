@@ -26,16 +26,14 @@ export class SubmissionsService {
   async create(createSubmissionDto: CreateSubmissionDto): Promise<Submission> {
     const { quizId, studentId, answers, score } = createSubmissionDto;
 
-    // Validate quiz existence
     const quiz = await this.quizRepository.findOne({
       where: { id: quizId },
-      relations: ['questions'], // Fetch questions for validation and alignment
+      relations: ['questions'],
     });
     if (!quiz) {
       throw new NotFoundException(`Quiz with ID ${quizId} not found`);
     }
 
-    // Validate student existence
     const student = await this.studentRepository.findOne({
       where: { id: studentId },
     });
@@ -43,14 +41,12 @@ export class SubmissionsService {
       throw new NotFoundException(`Student with ID ${studentId} not found`);
     }
 
-    // Validate that the number of answers matches the number of questions
     if (answers.length !== quiz.questions.length) {
       throw new Error(
         `Number of answers (${answers.length}) does not match the number of questions (${quiz.questions.length}) in the quiz.`,
       );
     }
 
-    // Create and save the submission
     const submission = this.submissionRepository.create({
       quiz,
       student,
@@ -58,7 +54,6 @@ export class SubmissionsService {
     });
     const savedSubmission = await this.submissionRepository.save(submission);
 
-    // Create and save the answers
     const answerEntities = answers.map((selectedAnswer, index) => {
       const question = quiz.questions[index];
       const isCorrect = question.correctAnswers.includes(selectedAnswer);
@@ -74,7 +69,6 @@ export class SubmissionsService {
 
     await this.answerRepository.save(answerEntities);
 
-    // Return the complete submission with its answers
     return this.submissionRepository.findOne({
       where: { id: savedSubmission.id },
       relations: ['answers', 'quiz', 'student'],

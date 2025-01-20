@@ -31,7 +31,6 @@ export class CoursesService {
       studentIds,
     } = createCourseDto;
 
-    // Find the teacher
     const teacher = await this.userRepository.findOne({
       where: { id: teacherId },
     });
@@ -39,7 +38,6 @@ export class CoursesService {
       throw new NotFoundException(`Teacher with ID ${teacherId} not found`);
     }
 
-    // Find the students (optional)
     let students = [];
     if (studentIds && studentIds.length > 0) {
       students = await this.userRepository.findByIds(studentIds);
@@ -48,7 +46,6 @@ export class CoursesService {
     console.log('students', students);
     console.log('teacher', teacher);
 
-    // Create and save the course
     const course = this.courseRepository.create({
       title,
       description,
@@ -96,8 +93,8 @@ export class CoursesService {
    * @returns Promise<Course>
    */
   async update(id: number, updateCourseDto: UpdateCourseDto): Promise<Course> {
-    const course = await this.findOne(id); // Ensure the course exists
-    Object.assign(course, updateCourseDto); // Merge the update data
+    const course = await this.findOne(id);
+    Object.assign(course, updateCourseDto);
     return this.courseRepository.save(course);
   }
 
@@ -107,7 +104,7 @@ export class CoursesService {
    * @returns Promise<void>
    */
   async remove(id: number): Promise<void> {
-    const course = await this.findOne(id); // Ensure the course exists
-    await this.courseRepository.remove(course); // Remove it from the database
+    const course = await this.findOne(id);
+    await this.courseRepository.remove(course);
   }
 }

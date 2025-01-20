@@ -1,5 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import Link from "next/link";
 
 export default function InstructorCard({ instructor }) {
   console.log("instructor", instructor);
@@ -22,9 +23,12 @@ export default function InstructorCard({ instructor }) {
         <div>
           <h3 className="text-lg font-semibold">Dr. {instructor?.name}</h3>
           <p className="text-sm text-muted-foreground">{instructor?.email}</p>
-          <a href="#" className="text-sm text-blue-600 hover:underline">
+          <Link
+            href={`/dashboard/user/${instructor.id}`}
+            className="text-sm text-blue-600 hover:underline"
+          >
             View Profile
-          </a>
+          </Link>
         </div>
       </CardContent>
     </Card>

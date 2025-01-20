@@ -1,5 +1,7 @@
 import React from "react";
+import Link from "next/link";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 
 async function getAnnouncement(id: string) {
   const res = await fetch(`http://localhost:3001/announcements/${id}`, {
@@ -43,6 +45,12 @@ const AnnouncementPage = async ({
           </p>
         </CardContent>
       </Card>
+
+      <div className="mt-4">
+        <Link href={`/dashboard/announcement/${announcement.id}/edit`}>
+          <Button>Edit Announcement</Button>
+        </Link>
+      </div>
     </div>
   );
 };

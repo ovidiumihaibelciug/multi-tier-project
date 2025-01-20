@@ -14,16 +14,12 @@ export class AnnouncementSeeder implements Seeder {
   ) {}
 
   async seed(): Promise<void> {
-    // Check if announcements already exist
     const existingAnnouncements = await this.announcementRepository.count();
     if (existingAnnouncements > 0) return;
 
-    // Fetch courses
     const courses = await this.courseRepository.find();
 
-    // Create unique announcements
     const announcements = [
-      // General announcements
       this.announcementRepository.create({
         title: 'Campus Maintenance Alert',
         content:
@@ -55,18 +51,16 @@ export class AnnouncementSeeder implements Seeder {
         isUrgent: false,
       }),
 
-      // Course-specific announcements
       ...courses.map((course, index) =>
         this.announcementRepository.create({
           title: `Update for ${course.title}`,
           content: `Attention students of ${course.title}, please check the updated syllabus and prepare for the upcoming midterm exam.`,
-          isUrgent: index % 2 === 0, // Alternate urgency for course announcements
+          isUrgent: index % 2 === 0,
           course,
         }),
       ),
     ];
 
-    // Limit to exactly 10 announcements, adding more general ones if needed
     while (announcements.length < 10) {
       announcements.push(
         this.announcementRepository.create({
@@ -78,7 +72,6 @@ export class AnnouncementSeeder implements Seeder {
       );
     }
 
-    // Save announcements
     for (const announcement of announcements) {
       await this.announcementRepository.save(announcement);
     }

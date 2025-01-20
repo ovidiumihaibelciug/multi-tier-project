@@ -12,11 +12,9 @@ export class UserSeeder implements Seeder {
   ) {}
 
   async seed(): Promise<any> {
-    // Check if users already exist
     const existingUsers = await this.userRepository.count();
     if (existingUsers > 0) return;
 
-    // Create users with role as string
     const users = [
       {
         name: 'Admin User',
@@ -42,7 +40,6 @@ export class UserSeeder implements Seeder {
   }
 
   async drop(): Promise<any> {
-    // Optionally clear users
     await this.userRepository.clear();
   }
 }

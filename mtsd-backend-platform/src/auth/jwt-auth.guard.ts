@@ -10,10 +10,9 @@ export class JwtAuthGuard extends AuthGuard('jwt') {
   }
 
   canActivate(context: ExecutionContext): boolean | Promise<boolean> {
-    // Check if the route is public
     const isPublic = this.reflector.getAllAndOverride<boolean>('isPublic', [
-      context.getHandler(), // Check method-level metadata
-      context.getClass(), // Check controller-level metadata
+      context.getHandler(),
+      context.getClass(),
     ]);
 
     const request = context.switchToHttp().getRequest();
@@ -22,15 +21,14 @@ export class JwtAuthGuard extends AuthGuard('jwt') {
     console.log('Token:', token);
 
     if (isPublic) {
-      return true; // Allow access to public routes
+      return true;
     }
 
-    // Handle potential Observable from super.canActivate
     const result = super.canActivate(context);
     if (result instanceof Observable) {
-      return result.toPromise(); // Convert Observable to Promise
+      return result.toPromise();
     }
 
-    return result; // Return boolean or Promise<boolean>
+    return result;
   }
 }

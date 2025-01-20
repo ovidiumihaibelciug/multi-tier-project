@@ -20,13 +20,6 @@ import { AnnouncementsModule } from './announcements/announcements.module';
     AnnouncementsModule,
   ],
   controllers: [AppController],
-  providers: [
-    AppService,
-    // {
-    //   provide: APP_GUARD,
-    //   useClass: JwtAuthGuard,
-    // },
-    // Reflector,
-  ],
+  providers: [AppService],
 })
 export class AppModule {}

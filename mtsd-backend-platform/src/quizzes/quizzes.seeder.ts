@@ -18,26 +18,23 @@ export class QuizSeeder implements Seeder {
   ) {}
 
   async seed(): Promise<void> {
-    // Check if quizzes already exist
     const existingQuizzes = await this.quizRepository.count();
     if (existingQuizzes > 0) return;
 
-    // Get courses to associate quizzes
     const courses = await this.courseRepository.find();
     if (courses.length === 0) {
       throw new Error('No courses found. Seed courses first.');
     }
 
-    // Create quizzes
     const quizzes = [
       {
         title: 'Algebra Basics Quiz',
         description: 'A quiz covering basic algebra concepts.',
         duration: 30,
-        startDate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), // 1 week from now
+        startDate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
         isActive: true,
         isPractice: false,
-        course: courses[0], // Associate with the first course
+        course: courses[0],
         questions: [
           {
             content: 'What is 2 + 2?',
@@ -58,10 +55,10 @@ export class QuizSeeder implements Seeder {
         description:
           'A practice quiz covering Newton’s laws and basic mechanics.',
         duration: 45,
-        startDate: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000), // 3 days from now
+        startDate: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000),
         isActive: true,
         isPractice: true,
-        course: courses[1], // Associate with the second course
+        course: courses[1],
         questions: [
           {
             content: 'What is the first law of motion?',
@@ -81,15 +78,12 @@ export class QuizSeeder implements Seeder {
       },
     ];
 
-    // Save quizzes and questions
     for (const quizData of quizzes) {
       const { questions, ...quizFields } = quizData;
 
-      // Create and save the quiz
       const quiz = this.quizRepository.create(quizFields);
       const savedQuiz = await this.quizRepository.save(quiz);
 
-      // Create and save questions for the quiz
       for (const questionData of questions) {
         const question = this.questionRepository.create({
           ...questionData,

@@ -43,25 +43,6 @@ export class UsersService {
     return this.userRepository.save(user);
   }
 
-  // async login(loginUserDto: LoginUserDto): Promise<{ accessToken: string }> {
-  //   const { email, password } = loginUserDto;
-
-  //   const user = await this.userRepository.findOne({ where: { email } });
-  //   if (!user) {
-  //     throw new NotFoundException('User not found');
-  //   }
-
-  //   const isPasswordValid = await bcrypt.compare(password, user.password);
-  //   if (!isPasswordValid) {
-  //     throw new UnauthorizedException('Invalid credentials');
-  //   }
-
-  //   const payload = { id: user.id, email: user.email, type: user.type };
-  //   const accessToken = this.jwtService.sign(payload);
-
-  //   return { accessToken };
-  // }
-
   async findUserByIdentifier(identifier: string): Promise<User | null> {
     return this.userRepository.findOne({
       where: [{ email: identifier }],
