@@ -1,4 +1,3 @@
-// @hidden
 import { useCallback, useEffect, useRef, useState } from "react";
 
 interface ScrollState {
@@ -114,7 +113,6 @@ export function useAutoScroll(options: UseAutoScrollOptions = {}) {
       ? checkIsAtBottom(scrollRef.current)
       : false;
 
-    // Only disable if not at bottom
     if (!atBottom) {
       userHasScrolled.current = true;
       setScrollState((prev) => ({

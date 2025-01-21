@@ -5,8 +5,8 @@ const Messages = ({ activeChat, currentUserId, messages, sendMessage }) => {
 
   const handleSendMessage = () => {
     if (messageInput.trim() !== "") {
-      sendMessage(messageInput); // Call the `sendMessage` function passed as a prop
-      setMessageInput(""); // Clear the input after sending
+      sendMessage(messageInput);
+      setMessageInput("");
     }
   };
 
@@ -59,7 +59,9 @@ const Messages = ({ activeChat, currentUserId, messages, sendMessage }) => {
           <div
             key={index}
             className={`flex items-end ${
-              message.sender?.id === currentUserId ? "justify-end" : "justify-start"
+              message.sender?.id === currentUserId
+                ? "justify-end"
+                : "justify-start"
             }`}
           >
             {message.sender?.id !== currentUserId && (
@@ -77,7 +79,9 @@ const Messages = ({ activeChat, currentUserId, messages, sendMessage }) => {
               }`}
             >
               <div className="text-sm">{message.content}</div>
-              <div className="text-xs text-gray-400">{new Date(message.timestamp).toLocaleTimeString()}</div>
+              <div className="text-xs text-gray-400">
+                {new Date(message.timestamp).toLocaleTimeString()}
+              </div>
             </div>
           </div>
         ))}

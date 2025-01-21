@@ -22,7 +22,7 @@ export class Project {
   deadline: Date;
 
   @Column()
-  state: string; // Enum for PROPOSED, COMPLETED, ABANDONED
+  state: string;
 
   @ManyToOne(() => Student, (student) => student.projects)
   @JoinColumn()

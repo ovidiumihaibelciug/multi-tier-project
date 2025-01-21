@@ -42,7 +42,6 @@ export class ChatSeeder implements Seeder {
       const chat = this.chatRepository.create(chatData);
       const savedChat = await this.chatRepository.save(chat);
 
-      // Create mock messages for each chat
       const messages = [
         {
           content: 'Hello! How are you?',

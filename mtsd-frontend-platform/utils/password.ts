@@ -6,7 +6,7 @@ import bcrypt from "bcryptjs";
  * @returns The hashed password.
  */
 export async function saltAndHashPassword(password: string): Promise<string> {
-  const saltRounds = 10; // Define the cost factor
+  const saltRounds = 10;
   const hashedPassword = await bcrypt.hash(password, saltRounds);
   return hashedPassword;
 }

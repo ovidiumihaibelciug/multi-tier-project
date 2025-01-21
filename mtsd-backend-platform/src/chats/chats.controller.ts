@@ -5,8 +5,6 @@ import {
   Body,
   Param,
   Delete,
-  Request,
-  BadRequestException,
   Headers,
 } from '@nestjs/common';
 import { ChatsService } from './chats.service';

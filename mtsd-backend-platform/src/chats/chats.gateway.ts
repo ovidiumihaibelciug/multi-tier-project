@@ -45,7 +45,6 @@ export class ChatsGateway implements OnGatewayConnection, OnGatewayDisconnect {
     console.log(`Client ${client.id} joined chat_${chatId}`);
   }
 
-  // Leave a chat room
   @SubscribeMessage('leaveChat')
   handleLeaveChat(client: Socket, chatId: number) {
     client.leave(`chat_${chatId}`);

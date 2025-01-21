@@ -24,7 +24,6 @@ interface QuizProps {
   id: string;
   quizId?: string;
   questions: QuizQuestion[];
-  // onFinishQuiz: (answers: string[]) => void;
 }
 
 export default function Quiz({ id, quizId, questions }: QuizProps) {

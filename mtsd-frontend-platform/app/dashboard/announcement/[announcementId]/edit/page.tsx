@@ -34,7 +34,6 @@ export default function EditAnnouncementPage({
   });
 
   useEffect(() => {
-    // Fetch the existing announcement data and populate the form
     async function fetchAnnouncement() {
       try {
         const res = await axios.get(
@@ -42,7 +41,6 @@ export default function EditAnnouncementPage({
         );
         const { title, content, course } = res.data;
 
-        // Prepopulate the form values
         setValue("title", title);
         setValue("content", content);
         setValue("courseId", course?.id || "");

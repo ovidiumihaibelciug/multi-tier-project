@@ -24,7 +24,6 @@ import {
 } from "@/components/ui/sidebar";
 import { User } from "next-auth";
 
-// This is sample data for a student app.
 const data = {
   user: {
     name: "John Doe",

@@ -1,4 +1,3 @@
-import { User } from 'src/users/entities/user.entity';
 import {
   Entity,
   PrimaryGeneratedColumn,
@@ -9,6 +8,7 @@ import {
   OneToMany,
 } from 'typeorm';
 import { Message } from './message.entity';
+import { User } from 'src/users/entities/user.entity';
 
 @Entity()
 export class Chat {
